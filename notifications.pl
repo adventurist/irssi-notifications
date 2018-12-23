@@ -16,7 +16,6 @@
 use strict;
 use warnings;
 use Encode;
-use Gtk2::Notify -init, "Irssi";
 use Irssi;
 
 # The character encoding of the Irssi client:
@@ -34,7 +33,7 @@ our %IRSSI    = (
   changed     => '2014-03-11',
 );
 
-# Display a GTK notification:
+# Display a kdialog notification:
 sub display_notification {
   my ($summary, $body) = @_;
 
@@ -43,7 +42,7 @@ sub display_notification {
   $body = decode(ENCODING, $body);
 
   # Display the notification:
-  Gtk2::Notify->new($summary, $body, "im-message-new")->show();
+  system("kdialog --passivepopup " . "'{$summary}' '{$body}'");
 }
 
 # Handle incoming public messages:
